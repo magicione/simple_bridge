@@ -100,4 +100,8 @@ massage_reply({remote, _Reason}, WSState) ->
 massage_reply(noreply, WSState) ->
     {ok, WSState};
 massage_reply(stop, WSState) ->
+    {stop, WSState};
+massage_reply(Unexpected, WSState) ->
+    %% Add a log for unexpected messages
+    lager:error("Unexpected message in massage_reply: ~p", [Unexpected]),
     {stop, WSState}.
